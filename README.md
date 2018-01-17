@@ -1,7 +1,5 @@
-# web-midi-nanokontrol
+# web-midi-message
 
-> Configure Korg Nanokontrol2 via web-midi
+> A minimal way to construct MIDI messages
 
-The Korg NanoKontrol2 is a low cost MIDI mixing device, setup via a large blob of configuration that is setup and talked to via some special System Exclusive MIDI commands.
-
-This library provides utilities to dump and load configuration, as well as classes to represent the Scene blobs.
+A (often super) class for building/parsing/writing MIDI messages (which are byte arrays).
