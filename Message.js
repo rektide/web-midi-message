@@ -26,9 +26,6 @@ export class Message{
 		options= options|| {}
 		this.kvs= kvs
 		this.defaults= options.defaults|| {}
-		for( var i in moduleDefaults){
-			defineBinding( this.defaults, i, moduleDefaults) // sett
-		}
 		this.loadDefaults()
 		if( options.bytes){
 			this.fromBytes( options.bytes)
@@ -55,13 +52,13 @@ export class Message{
 		  missing= []
 		for( var kv of this.kvs){
 			var
-			  extra= kv.extra&& (this[ kv.extra]|| defaults[ kv.extra]),
+			  extra= kv.extra&& (this[ kv.extra]|| defaults[ kv.extra])|| 0,
 			  value= kv.value+ extra
-			if( val=== undefined){
+			if( value=== undefined){
 				missing.push( kv.name)
 				continue
 			}
-			output.push( val)
+			output.push( value)
 		}
 		if( missing.length){
 			throw new Error("Missing properties "+ missing.join(", "))
