@@ -2,7 +2,7 @@
 	"name": "web-midi-message",
 	"version": "1.0.0",
 	"description": "A minimal way to construct MIDI messages",
-	"main": "index.js",
+	"main": "web-midi-message.js",
 	"module": "web-midi-message.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1"
