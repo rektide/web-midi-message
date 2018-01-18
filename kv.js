@@ -19,6 +19,6 @@ export function kv( value, name, extra, more){
 	if( extra=== null){
 		extra= undefined
 	}
-	return { value, name, extra, ...more)
+	return { value, name, extra, ...more}
 }
 export default kv

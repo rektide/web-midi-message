@@ -21,7 +21,7 @@ export function extraMask( bite, kv){
 	return bite& extraMask& byteMask
 }
 
-export class Message( kvs){
+export class Message{
 	constructor( kvs, options){
 		options= options|| {}
 		this.kvs= kvs
