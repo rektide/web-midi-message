@@ -87,26 +87,15 @@ export class Message{
 			return checkValue=== kv.value
 		}
 
-		// iterate forward until "variable"
-		var variable
+		var offset= 0
 		for( var i in this.kvs){
-			if( !tryLoad( i)){
+			i= Number.parseInt( i) // ?
+			if( !tryLoad( i, offset+ i)){
 				return false
 			}
 			var kv= this.kvs[ i]
 			if( kv.variable){
-				variable= i
-				break
-			}
-		}
-		if( variable){
-			// iterate backwards
-			// walk backwards
-			for( var i= this.kvs.length- 1; i> variable; --i){
-				var varlen= bytes.length- this.kvs.length
-				if( !tryLoad( i, i+ varlen)){
-					return false
-				}
+				offset= bytes.length- this.kvs.length
 			}
 		}
 		return this
