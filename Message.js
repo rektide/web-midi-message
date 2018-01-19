@@ -96,6 +96,7 @@ export class Message{
 			var kv= this.kvs[ i]
 			if( kv.variable){
 				offset= bytes.length- this.kvs.length
+				this[ kv.name]= bytes.slice( i, bytes.length- this.kvs.length+ i+ 1)
 			}
 		}
 		return this
