@@ -1,5 +1,7 @@
 import defineBinding from "define-binding"
 
+const byteMask= 0xFF
+
 /**
   create a mask of all bits in the byte right of first bit
 */
@@ -70,7 +72,7 @@ export class Message{
 		var tryLoad= (indexKv,indexBytes)=>{
 			var
 			  kv= this.kvs[ indexKv],
-			  bite= bytes[ indexBytes=== undefined? indexBytes: indexKv],
+			  bite= bytes[ indexBytes=== undefined? indexKv: indexBytes],
 			  checkValue= bite
 			this[ kv.name]= bite
 			if( kv.extra){
@@ -86,8 +88,9 @@ export class Message{
 		}
 
 		// iterate forward until "variable"
+		var variable
 		for( var i in this.kvs){
-			if( !load( i)){
+			if( !tryLoad( i)){
 				return false
 			}
 			var kv= this.kvs[ i]
@@ -100,8 +103,8 @@ export class Message{
 			// iterate backwards
 			// walk backwards
 			for( var i= this.kvs.length- 1; i> variable; --i){
-				var varlen= this.bytes.length- this.kvs.length
-				if( !load( i, i+ varlen)){
+				var varlen= bytes.length- this.kvs.length
+				if( !tryLoad( i, i+ varlen)){
 					return false
 				}
 			}
