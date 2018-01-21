@@ -14,9 +14,6 @@
 	"keywords": [],
 	"author": "rektide de la faye",
 	"license": "X11",
-	"dependencies": {
-		"define-binding": "^1.0.1"
-	},
 	"@std/esm": {
 		"esm": "js",
 		"cjs": {

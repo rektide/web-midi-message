@@ -1,5 +1,3 @@
-import defineBinding from "define-binding"
-
 const byteMask= 0xFF
 
 /**
