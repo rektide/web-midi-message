@@ -129,18 +129,24 @@ export class Message{
 	  Note that this method uses dynamic-import to load listen-for and it's dependencies on the fly.
 	*/
 	static async listenFor( eventTarget, name, byteReader){
-		// start _listenFor dynamic-import if we don't have it
-		if( !_listenFor){
-			// save wip dynamic-import into module scope for anyone else coming along while we're still loading it
-			_listenFor= import( "./listen-for.js")
+		if( !_listenFor|| _listenFor.then){
+			await loadListenFor()
 		}
-		// check if _listenFor is loaded
-		if( _listenFor.then){
-			// wait for _listenFor to load, & save it
-			_listenFor= (await _listenFor).default
-		}
-		// run loaded _listenFor
 		return _listenFor( this, eventTarget, name, byteReader)
 	}
 }
 export default Message
+
+export async function loadListenFor(){
+	// start _listenFor dynamic-import if we don't have it
+	if( !_listenFor){
+		// save wip dynamic-import into module scope for anyone else coming along while we're still loading it
+		_listenFor= import( "./listen-for.js")
+	}
+	// check if _listenFor is loaded
+	if( _listenFor.then){
+		// wait for _listenFor to load, & save it
+		_listenFor= (await _listenFor).default
+	}
+	return _listenFor
+}

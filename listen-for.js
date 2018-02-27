@@ -1,6 +1,7 @@
 import Message from "./Message.js"
+import once from "eventtarget-once"
 
-export static listenFor( messageKlass, eventTarget, name, byteReader){
+export function listenFor( messageKlass, eventTarget, name, byteReader){
 	if( messageKlass=== Message){
 		// only a derived type will have kv's to load bytes with
 		throw new Error( "Expected a derived type")
@@ -25,4 +26,4 @@ export static listenFor( messageKlass, eventTarget, name, byteReader){
 		}
 	}
 }
-
+export default listenFor
