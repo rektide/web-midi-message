@@ -21,6 +21,14 @@ export function extraMask( bite, kv){
 	return bite& extraMask& byteMask
 }
 
+/**
+  The loading or loaded "./listen-for.js" method. This method has another dependency, so it is quarantined off & loaded as a dynamic-import.
+*/
+let _listenFor
+
+/**
+  Structured representation of a MIDIMessage
+*/
 export class Message{
 	constructor( kvs, options){
 		options= options|| {}
@@ -45,6 +53,9 @@ export class Message{
 	assign( options){
 		Object.assign( this, options)
 	}
+	/**
+	  Return a new byte-array equivalent to this structured representation.
+	*/
 	toBytes(){
 		var
 		  defaults= this.defaults|| {},
@@ -65,7 +76,10 @@ export class Message{
 		}
 		return output
 	}
-	// big feels this would be better static.
+	/**
+	  Load the given byte array into this instance.
+	  If unexpected data is encountered during loading, return false and leave this instance in a dirty undefined state.
+	*/
 	fromBytes( bytes){
 		var tryLoad= (indexKv,indexBytes)=>{
 			var
@@ -98,6 +112,35 @@ export class Message{
 			}
 		}
 		return this
+	}
+
+	/**
+	  Static factory method for subclasses of Message, for an array of bytees.
+	*/
+	static fromBytes( bytes){
+		var instance= new this()
+		if( !instance.fromBytes( bytes)){
+			throw new Error( "Invalid bytes")
+		}
+		return instance
+	}
+	/**
+	  Listen to an EventTarget for the first instance of a subclass of Message.
+	  Note that this method uses dynamic-import to load listen-for and it's dependencies on the fly.
+	*/
+	static async listenFor( eventTarget, name, byteReader){
+		// start _listenFor dynamic-import if we don't have it
+		if( !_listenFor){
+			// save wip dynamic-import into module scope for anyone else coming along while we're still loading it
+			_listenFor= import( "./listen-for.js")
+		}
+		// check if _listenFor is loaded
+		if( _listenFor.then){
+			// wait for _listenFor to load, & save it
+			_listenFor= (await _listenFor).default
+		}
+		// run loaded _listenFor
+		return _listenFor( this, eventTarget, name, byteReader)
 	}
 }
 export default Message

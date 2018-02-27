@@ -1,6 +1,6 @@
 {
 	"name": "web-midi-message",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"description": "A minimal way to construct MIDI messages",
 	"main": "web-midi-message.js",
 	"module": "web-midi-message.js",
@@ -20,5 +20,8 @@
 			"cache": true,
 			"namedExports": true
 		}
+	},
+	"dependencies": {
+		"eventtarget-once": "^1.0.0"
 	}
 }
