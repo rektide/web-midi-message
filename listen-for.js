@@ -24,6 +24,7 @@ export function listenFor( messageKlass, eventTarget, name, byteReader){
 		if( !success){
 			return false
 		}
+		return instance
 	}
 }
 export default listenFor

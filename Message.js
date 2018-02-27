@@ -137,6 +137,9 @@ export class Message{
 }
 export default Message
 
+/**
+  Load the _listenFor global variable, insuring Message.listenFor can commence "immediately"
+*/
 export async function loadListenFor(){
 	// start _listenFor dynamic-import if we don't have it
 	if( !_listenFor){
